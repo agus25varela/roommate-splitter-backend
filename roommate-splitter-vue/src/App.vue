@@ -95,7 +95,7 @@ export default {
       fecha: ''
     })
 
-    const API_URL = 'http://localhost:8080/api/gastos'
+    const API_URL = `${import.meta.env.VITE_API_URL}/gastos`
 
     // Cargar gastos al montar el componente
     onMounted(() => {
