@@ -1,5 +1,43 @@
-# Vue 3 + Vite
+# Roommate Splitter - Frontend
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Dashboard interactivo para dividir gastos entre compañeros de departamento.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Stack
+- **Frontend:** Vue 3 + Vite
+- **Backend:** Spring Boot (Java 21) + PostgreSQL
+- **API:** REST
+
+## Cómo correr localmente
+
+### Requisitos
+- Node.js 20+
+- Backend levantado en `http://localhost:8080`
+
+### Frontend
+```bash
+npm install
+npm run dev
+```
+
+La app abre en `http://localhost:5173`
+
+### Backend (necesario)
+El backend corre en un repo separado: [roommate-splitter-backend](https://github.com/agus25varela/roommate-splitter-backend)
+
+**Instrucciones:**
+1. Clona el repo del backend
+2. Configura PostgreSQL (crea BD `roommate_db`)
+3. Levantá con Maven:
+```bash
+mvn clean spring-boot:run
+```
+
+Backend escucha en `http://localhost:8080`
+
+## Demo en Vivo
+Frontend desplegado en Vercel: [roommate-splitter-frontend.vercel.app](https://roommate-splitter-frontend.vercel.app)
+
+*Nota: Para funcionalidad completa, necesita backend corriendo localmente*
+
+## Autor
+Agustina Varela - [@agus25varela](https://github.com/agus25varela)
