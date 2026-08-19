@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/gastos")
@@ -20,6 +21,25 @@ public class GastoController {
     @PostMapping
     public Gasto createGasto(@RequestBody Gasto gasto) {
         return gastoRepository.save(gasto);
+    }
+
+    @PutMapping("/{id}")
+    public Gasto updateGasto(@PathVariable Long id, @RequestBody Gasto gastoActualizado) {
+        Optional<Gasto> gastoExistente = gastoRepository.findById(id);
+        if (gastoExistente.isPresent()) {
+            Gasto gasto = gastoExistente.get();
+            gasto.setDescripcion(gastoActualizado.getDescripcion());
+            gasto.setMonto(gastoActualizado.getMonto());
+            gasto.setQuienPago(gastoActualizado.getQuienPago());
+            gasto.setFecha(gastoActualizado.getFecha());
+            return gastoRepository.save(gasto);
+        }
+        return null;
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteGasto(@PathVariable Long id) {
+        gastoRepository.deleteById(id);
     }
 
     @GetMapping("/balances")
