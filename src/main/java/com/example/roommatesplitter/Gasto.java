@@ -3,27 +3,34 @@ package com.example.roommatesplitter;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "gastos")
-
-public class Gasto { @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
+public class Gasto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String descripcion;
     private BigDecimal monto;
-    private String quienPago; // "yo", "roommate_a", "roommate_b"
+    private String quienPago;
     private LocalDate fecha;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonIgnore
+    private Usuario usuario;
 
     // Constructores
     public Gasto() {}
 
-    public Gasto(String descripcion, BigDecimal monto, String quienPago, LocalDate fecha) {
+    public Gasto(String descripcion, BigDecimal monto, String quienPago, LocalDate fecha, Usuario usuario) {
         this.descripcion = descripcion;
         this.monto = monto;
         this.quienPago = quienPago;
         this.fecha = fecha;
+        this.usuario = usuario;
     }
 
     // Getters y Setters
@@ -67,4 +74,11 @@ private Long id;
         this.fecha = fecha;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }

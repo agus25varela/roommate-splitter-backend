@@ -2,6 +2,9 @@ package com.example.roommatesplitter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -13,13 +16,26 @@ public class GastoController {
     @Autowired
     private GastoRepository gastoRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     @GetMapping
-    public List<Gasto> getAllGastos() {
-        return gastoRepository.findAll();
+    public List<Gasto> getAllGastos(@RequestParam Long usuarioId) {
+        return gastoRepository.findByUsuarioId(usuarioId);
     }
 
     @PostMapping
-    public Gasto createGasto(@RequestBody Gasto gasto) {
+    public Gasto createGasto(@RequestBody GastoRequest request) {
+        Usuario usuario = usuarioRepository.findById(request.usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        Gasto gasto = new Gasto(
+                request.descripcion,
+                request.monto,
+                request.quienPago,
+                request.fecha,
+                usuario
+        );
         return gastoRepository.save(gasto);
     }
 
@@ -80,4 +96,11 @@ public class GastoController {
 
         return balances;
     }
+}
+class GastoRequest {
+    public String descripcion;
+    public BigDecimal monto;
+    public String quienPago;
+    public LocalDate fecha;
+    public Long usuarioId;
 }
