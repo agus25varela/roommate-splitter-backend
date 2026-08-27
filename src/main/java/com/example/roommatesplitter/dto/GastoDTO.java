@@ -1,47 +1,40 @@
-package com.example.roommatesplitter;
+package com.example.roommatesplitter.dto;
 
-import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
-@Table(name = "gastos")
-public class Gasto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class GastoDTO {
 
+    @NotBlank(message = "Descripción no puede estar vacía")
+    @Size(min = 3, max = 200, message = "Descripción debe tener entre 3 y 200 caracteres")
     private String descripcion;
+
+    @NotNull(message = "Monto no puede ser nulo")
+    @DecimalMin(value = "0.01", message = "Monto debe ser mayor a 0")
     private BigDecimal monto;
+
+    @NotBlank(message = "Quién pagó no puede estar vacío")
     private String quienPago;
+
+    @NotNull(message = "Fecha no puede ser nula")
     private LocalDate fecha;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    @JsonIgnore
-    private Usuario usuario;
+    @NotNull(message = "Usuario ID no puede ser nulo")
+    private Long usuarioId;
 
     // Constructores
-    public Gasto() {}
+    public GastoDTO() {}
 
-    public Gasto(String descripcion, BigDecimal monto, String quienPago, LocalDate fecha, Usuario usuario) {
+    public GastoDTO(String descripcion, BigDecimal monto, String quienPago, LocalDate fecha, Long usuarioId) {
         this.descripcion = descripcion;
         this.monto = monto;
         this.quienPago = quienPago;
         this.fecha = fecha;
-        this.usuario = usuario;
+        this.usuarioId = usuarioId;
     }
 
     // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
@@ -74,11 +67,11 @@ public class Gasto {
         this.fecha = fecha;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Long getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
     }
 }

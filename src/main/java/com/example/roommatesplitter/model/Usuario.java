@@ -1,4 +1,4 @@
-package com.example.roommatesplitter;
+package com.example.roommatesplitter.model;
 
 import jakarta.persistence.*;
 import java.util.List;

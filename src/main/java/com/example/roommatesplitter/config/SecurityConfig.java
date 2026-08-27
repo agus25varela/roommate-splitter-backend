@@ -1,4 +1,4 @@
-package com.example.roommatesplitter;
+package com.example.roommatesplitter.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

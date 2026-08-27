@@ -1,5 +1,6 @@
-package com.example.roommatesplitter;
+package com.example.roommatesplitter.repository;
 
+import com.example.roommatesplitter.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;

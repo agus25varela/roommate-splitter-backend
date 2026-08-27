@@ -1,5 +1,7 @@
-package com.example.roommatesplitter;
+package com.example.roommatesplitter.controller;
 
+import com.example.roommatesplitter.model.Usuario;
+import com.example.roommatesplitter.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
