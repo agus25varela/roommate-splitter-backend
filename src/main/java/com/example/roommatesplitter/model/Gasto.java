@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "gastos")
+@Table(name = "gasto")
 public class Gasto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

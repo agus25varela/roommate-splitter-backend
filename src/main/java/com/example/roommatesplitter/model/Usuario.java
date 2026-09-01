@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "usuario")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,7 @@ public class Usuario {
     private String nombre;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<Gasto> gastos;
+    private List<Gasto> gasto;
 
     public Usuario() {}
 
@@ -51,11 +51,11 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public List<Gasto> getGastos() {
-        return gastos;
+    public List<Gasto> getGasto() {
+        return gasto;
     }
 
-    public void setGastos(List<Gasto> gastos) {
-        this.gastos = gastos;
+    public void setGasto(List<Gasto> gasto) {
+        this.gasto = gasto;
     }
 }

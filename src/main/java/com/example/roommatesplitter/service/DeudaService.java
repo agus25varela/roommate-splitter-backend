@@ -81,12 +81,12 @@ public class DeudaService {
      * Obtiene todas las deudas de un usuario
      */
     @Transactional(readOnly = true)
-    public List<DeudaDTO> obtenerDeudasPorUsuario(Long usuarioId) {
+    public List<DeudaDTO> obtenerDeudaPorUsuario(Long usuarioId) {
         validarQueUsuarioExiste(usuarioId);
 
-        List<Deuda> deudas = deudaRepository.findByUsuarioId(usuarioId);
+        List<Deuda> deuda = deudaRepository.findByUsuarioId(usuarioId);
 
-        return deudas.stream()
+        return deuda.stream()
                 .map(this::convertirADeudaDTO)
                 .toList();
     }

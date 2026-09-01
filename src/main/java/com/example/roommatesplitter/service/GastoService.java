@@ -26,7 +26,7 @@ public class GastoService {
      * Obtiene todos los gastos de un usuario ordenados por fecha descendente
      */
     @Transactional(readOnly = true)
-    public List<GastoResponseDTO> obtenerGastosPorUsuario(Long usuarioId) {
+    public List<GastoResponseDTO> obtenerGastoPorUsuario(Long usuarioId) {
         validarQueUsuarioExiste(usuarioId);
         return gastoRepository.findByUsuarioIdOrderByFechaDesc(usuarioId)
                 .stream()

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/gastos")
+@RequestMapping("/api/gasto")
 @CrossOrigin(origins = "http://localhost:5173")
 public class GastoController {
 
@@ -25,9 +25,9 @@ public class GastoController {
     private DeudaService deudaService;
 
     @GetMapping
-    public ResponseEntity<List<GastoResponseDTO>> obtenerGastos(@RequestParam Long usuarioId) {
-        List<GastoResponseDTO> gastos = gastoService.obtenerGastosPorUsuario(usuarioId);
-        return ResponseEntity.ok(gastos);
+    public ResponseEntity<List<GastoResponseDTO>> obtenerGasto(@RequestParam Long usuarioId) {
+        List<GastoResponseDTO> gasto = gastoService.obtenerGastoPorUsuario(usuarioId);
+        return ResponseEntity.ok(gasto);
     }
 
     @PostMapping
