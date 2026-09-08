@@ -16,14 +16,18 @@ public class Usuario {
     @Column(nullable = false)
     private String nombre;
 
+    @Column(nullable = false)
+    private String password;
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Gasto> gasto;
 
     public Usuario() {}
 
-    public Usuario(String email, String nombre) {
+    public Usuario(String email, String nombre, String password) {
         this.email = email;
         this.nombre = nombre;
+        this.password = password;
     }
 
     // Getters y Setters
@@ -49,6 +53,14 @@ public class Usuario {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<Gasto> getGasto() {
