@@ -61,4 +61,21 @@ public class GastoController {
         List<BalanceDTO> balances = deudaService.calcularBalances(usuarioId);
         return ResponseEntity.ok(balances);
     }
+
+    // Clase para respuestas de error
+    public static class ErrorResponse {
+        private String mensaje;
+
+        public ErrorResponse(String mensaje) {
+            this.mensaje = mensaje;
+        }
+
+        public String getMensaje() {
+            return mensaje;
+        }
+
+        public void setMensaje(String mensaje) {
+            this.mensaje = mensaje;
+        }
+    }
 }

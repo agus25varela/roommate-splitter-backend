@@ -27,7 +27,7 @@ public class GastoService {
      */
     @Transactional(readOnly = true)
     public List<GastoResponseDTO> obtenerGastoPorUsuario(Long usuarioId) {
-        validarQueUsuarioExiste(usuarioId);
+        // No validar existencia — si el usuario no existe, retorna lista vacía
         return gastoRepository.findByUsuarioIdOrderByFechaDesc(usuarioId)
                 .stream()
                 .map(this::convertirAResponseDTO)

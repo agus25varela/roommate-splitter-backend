@@ -34,7 +34,7 @@ public class DeudaService {
      */
     @Transactional(readOnly = true)
     public List<BalanceDTO> calcularBalances(Long usuarioId) {
-        validarQueUsuarioExiste(usuarioId);
+        // NO validar existencia del usuario — retornar lista vacía si no hay datos
 
         List<Gasto> gastos = gastoRepository.findByUsuarioId(usuarioId);
 
@@ -82,7 +82,7 @@ public class DeudaService {
      */
     @Transactional(readOnly = true)
     public List<DeudaDTO> obtenerDeudaPorUsuario(Long usuarioId) {
-        validarQueUsuarioExiste(usuarioId);
+        // NO validar existencia del usuario — retornar lista vacía si no hay datos
 
         List<Deuda> deuda = deudaRepository.findByUsuarioId(usuarioId);
 
@@ -104,12 +104,6 @@ public class DeudaService {
     }
 
     // Métodos privados
-
-    private void validarQueUsuarioExiste(Long usuarioId) {
-        if (!usuarioRepository.existsById(usuarioId)) {
-            throw new IllegalArgumentException("Usuario con ID " + usuarioId + " no existe");
-        }
-    }
 
     private DeudaDTO convertirADeudaDTO(Deuda deuda) {
         return new DeudaDTO(
