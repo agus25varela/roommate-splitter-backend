@@ -1,10 +1,10 @@
 package com.example.roommatesplitter.controller;
 
+import com.example.roommatesplitter.dto.BalanceDTO;
 import com.example.roommatesplitter.dto.GastoDTO;
 import com.example.roommatesplitter.dto.GastoResponseDTO;
-import com.example.roommatesplitter.dto.BalanceDTO;
+import com.example.roommatesplitter.dto.UpdateGastoDTO;
 import com.example.roommatesplitter.service.GastoService;
-import com.example.roommatesplitter.service.DeudaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,9 +20,6 @@ public class GastoController {
 
     @Autowired
     private GastoService gastoService;
-
-    @Autowired
-    private DeudaService deudaService;
 
     @GetMapping
     public ResponseEntity<List<GastoResponseDTO>> obtenerGasto(@RequestParam Long usuarioId) {
@@ -45,7 +42,7 @@ public class GastoController {
     @PutMapping("/{id}")
     public ResponseEntity<GastoResponseDTO> actualizarGasto(
             @PathVariable Long id,
-            @Valid @RequestBody GastoDTO gastoDTO) {
+            @Valid @RequestBody UpdateGastoDTO gastoDTO) {
         GastoResponseDTO gastoActualizado = gastoService.actualizarGasto(id, gastoDTO);
         return ResponseEntity.ok(gastoActualizado);
     }
@@ -58,24 +55,7 @@ public class GastoController {
 
     @GetMapping("/balances")
     public ResponseEntity<List<BalanceDTO>> obtenerBalances(@RequestParam Long usuarioId) {
-        List<BalanceDTO> balances = deudaService.calcularBalances(usuarioId);
+        List<BalanceDTO> balances = gastoService.calcularBalances(usuarioId);
         return ResponseEntity.ok(balances);
-    }
-
-    // Clase para respuestas de error
-    public static class ErrorResponse {
-        private String mensaje;
-
-        public ErrorResponse(String mensaje) {
-            this.mensaje = mensaje;
-        }
-
-        public String getMensaje() {
-            return mensaje;
-        }
-
-        public void setMensaje(String mensaje) {
-            this.mensaje = mensaje;
-        }
     }
 }

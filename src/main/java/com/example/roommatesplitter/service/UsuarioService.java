@@ -3,6 +3,8 @@ package com.example.roommatesplitter.service;
 import com.example.roommatesplitter.dto.UsuarioLoginDTO;
 import com.example.roommatesplitter.dto.UsuarioResponseDTO;
 import com.example.roommatesplitter.dto.UsuarioSignupDTO;
+import com.example.roommatesplitter.exception.CredencialesInvalidasException;
+import com.example.roommatesplitter.exception.RecursoNoEncontradoException;
 import com.example.roommatesplitter.model.Usuario;
 import com.example.roommatesplitter.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,14 +48,14 @@ public class UsuarioService {
         Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(dto.getEmail());
 
         if (usuarioOpt.isEmpty()) {
-            throw new IllegalArgumentException("Email o contraseña incorrectos");
+            throw new CredencialesInvalidasException("Email o contraseña incorrectos");
         }
 
         Usuario usuario = usuarioOpt.get();
 
         // Validar contraseña
         if (!passwordEncoder.matches(dto.getPassword(), usuario.getPassword())) {
-            throw new IllegalArgumentException("Email o contraseña incorrectos");
+            throw new CredencialesInvalidasException("Email o contraseña incorrectos");
         }
 
         return convertirAResponseDTO(usuario);
@@ -64,7 +66,7 @@ public class UsuarioService {
      */
     public UsuarioResponseDTO obtenerPorId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+                .orElseThrow(() -> new RecursoNoEncontradoException("Usuario no encontrado"));
         return convertirAResponseDTO(usuario);
     }
 

@@ -18,52 +18,20 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@Valid @RequestBody UsuarioSignupDTO dto) {
-        try {
-            UsuarioResponseDTO usuarioCreado = usuarioService.registrarse(dto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(usuarioCreado);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ErrorResponse(e.getMessage()));
-        }
+    public ResponseEntity<UsuarioResponseDTO> signup(@Valid @RequestBody UsuarioSignupDTO dto) {
+        UsuarioResponseDTO usuarioCreado = usuarioService.registrarse(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioCreado);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody UsuarioLoginDTO dto) {
-        try {
-            UsuarioResponseDTO usuario = usuarioService.login(dto);
-            return ResponseEntity.ok(usuario);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new ErrorResponse(e.getMessage()));
-        }
+    public ResponseEntity<UsuarioResponseDTO> login(@Valid @RequestBody UsuarioLoginDTO dto) {
+        UsuarioResponseDTO usuario = usuarioService.login(dto);
+        return ResponseEntity.ok(usuario);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> obtenerUsuario(@PathVariable Long id) {
-        try {
-            UsuarioResponseDTO usuario = usuarioService.obtenerPorId(id);
-            return ResponseEntity.ok(usuario);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ErrorResponse(e.getMessage()));
-        }
-    }
-
-    // Clase interna para respuestas de error
-    public static class ErrorResponse {
-        private String mensaje;
-
-        public ErrorResponse(String mensaje) {
-            this.mensaje = mensaje;
-        }
-
-        public String getMensaje() {
-            return mensaje;
-        }
-
-        public void setMensaje(String mensaje) {
-            this.mensaje = mensaje;
-        }
+    public ResponseEntity<UsuarioResponseDTO> obtenerUsuario(@PathVariable Long id) {
+        UsuarioResponseDTO usuario = usuarioService.obtenerPorId(id);
+        return ResponseEntity.ok(usuario);
     }
 }
